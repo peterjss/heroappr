@@ -1,0 +1,84 @@
+
+<%= javascript_include_tag "jquery/js/jquery.ui.core" %>
+<%= javascript_include_tag "jquery/js/jquery.ui.widget" %>
+<%= javascript_include_tag "jquery/js/jquery.ui.mouse" %>
+<%= javascript_include_tag "jquery/js/jquery.ui.sortable" %>
+
+<%= javascript_include_tag "apps/main" %>
+<%= javascript_include_tag "apps/responsive" %>
+<%= javascript_include_tag "apps/plugin.portal" %>
+<%= javascript_include_tag "apps/page.list" %>
+<!--<%= javascript_include_tag "apps/plugin.formset" %>-->
+<%= javascript_include_tag "apps/page.form" %>
+
+
+<%= render 'layouts/topnav' %>
+<div id="body-content" class="row" style="margin-left:0;margin-right: 0;">
+
+  <%= render partial: 'layouts/leftside', locals:{leftmenu: 'project'}%>
+
+  <div id="content-block" class="col col-11 col-lg-10">
+    <ul class="breadcrumb">
+      <li><%=link_to home_path do%> Home <% end %></li>
+      <li>
+        <!--<a href="/heroapp/html/project/project.html">Projects</a>-->
+        <%=link_to app_projects_path  do%> Projects <% end %>
+      </li>
+      <li class="active"> Edit project</li>
+    </ul>
+
+    <div class="navbar content-navbar navbar-sm" data-class-lg="navbar content-navbar"
+         data-class-md="navbar content-navbar" data-class-sm="navbar content-navbar navbar-inverse"
+         data-toggle="breakpoint">
+
+      <button class="navbar-toggle nav-back" onclick="javascript: history.back();" type="button">
+        <i class="icon-arrow-left"></i>
+      </button>
+
+      <a class="navbar-brand collapsed" data-target="#top-nav .nav-collapse" data-toggle="collapse">
+        <i class="icon-globe">
+          <sub class="icon-plus"></sub>
+        </i>
+        Edit project
+      </a>
+
+      <div class="nav-collapse collapse">
+        <ul class="nav navbar-nav"></ul>
+      </div>
+      <div class="navbar-btn pull-right"></div>
+    </div>
+    <%= form_for @project, url:app_project_path(@project), html:{id: 'continent_form', class: 'exform rended', method:'post', enctype:'multipart/form-data'} do |fo| %>
+        <%= render partial: 'form', locals:{f: fo}%>
+
+        <!--action buttons-->
+        <div class="form-actions well well-sm">
+          <a class="btn btn-danger deletelink col-xs col-xs-2 visible-xs" href="/app/continent/4/delete/">
+            <i class="icon-trash"></i>
+          </a>
+          <div class="btn-group save-group visible-xs col-xs col-xs-10">
+            <button type="submit" class="default btn btn-primary col-xs col-xs-10">
+              <i class="icon-save"></i> Save
+            </button>
+            <button type="button" class="more btn btn-primary col-xs col-xs-2" data-toggle="collapse"
+                    data-target=".nav-collapse.more-btns">
+              <i class="icon-ellipsis-vertical"></i>
+            </button>
+          </div>
+
+          <button type="submit" class="default btn btn-primary hidden-xs" name="_save" style="margin-top: 10px;">
+            <i class="icon-save"></i> Save
+          </button>
+
+          <div class="nav-collapse collapse more-btns">
+            <input class="btn btn-default" value="Save and add another" name="_addanother" type="submit">
+            <input class="btn btn-default" value="Save and continue editing" name="_continue" type="submit">
+          </div>
+
+          <a class="btn btn-danger deletelink pull-right hidden-xs" href="/app/continent/4/delete/">
+            <i class="icon-trash"></i> Delete
+          </a>
+        </div>
+    <% end %>
+  </div>
+</div>
+<%= render 'layouts/footer' %>
